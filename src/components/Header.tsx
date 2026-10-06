@@ -47,20 +47,30 @@ export const Header: React.FC<HeaderProps> = ({ onBookAppointmentClick }) => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+
+    if (href === '#home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+      return;
+    }
+
     const target = document.querySelector(href);
     if (target) {
-      const topOffset = 85;
+      const headerEl = document.querySelector('header');
+      const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 85;
       const elementPosition = target.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - topOffset;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth',
       });
     }
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full transition-all duration-200">
+    <header className="sticky top-0 z-40 w-full">
       {/* 1. TOP BAR: Deep Navy #082D52 (Mirroring Reference Video 00:00) */}
       <div className="bg-[#082D52] text-white text-[11px] sm:text-xs py-1.5 px-4 sm:px-6 border-b border-[#0B3F8F]">
         <div className="max-w-[1180px] mx-auto flex items-center justify-between">
@@ -93,8 +103,8 @@ export const Header: React.FC<HeaderProps> = ({ onBookAppointmentClick }) => {
 
       {/* 2. MAIN NAVIGATION: White with logo & Book Appointment pill button (Mirroring Reference Video 00:00 - 00:06) */}
       <nav
-        className={`bg-white/98 backdrop-blur-md border-b border-[#D9E7F4] transition-all duration-200 ${
-          isScrolled ? 'py-2.5 shadow-sm' : 'py-3.5'
+        className={`bg-white/98 backdrop-blur-md border-b border-[#D9E7F4] py-3.5 transition-shadow duration-200 ${
+          isScrolled ? 'shadow-sm' : ''
         }`}
       >
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 flex items-center justify-between">
@@ -104,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({ onBookAppointmentClick }) => {
             onClick={(e) => handleNavClick(e, '#home')}
             className="flex items-center hover:opacity-95 transition-opacity"
           >
-            <HospitalLogo size={isScrolled ? 'sm' : 'md'} />
+            <HospitalLogo size="md" />
           </a>
 
           {/* Desktop Navigation Links (Mirroring Reference Video) */}
