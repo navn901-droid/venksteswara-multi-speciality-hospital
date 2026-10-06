@@ -1,0 +1,6 @@
+{
+  "name": "Venkateswara Multi Speciality Hospital",
+  "description": "Premium, high-trust, modern multi-speciality hospital website for Venkateswara Multi Speciality Hospital featuring departments, doctors, 24/7 emergency care, facilities gallery, and online appointment booking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
